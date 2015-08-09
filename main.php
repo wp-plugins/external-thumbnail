@@ -3,7 +3,7 @@
 Plugin Name: External Thumbnail
 Plugin URI: http://thucdem.mobi
 Description: Using external images from anywhere to make thumbnail
-Version: 1.1.1
+Version: 1.2
 Author: MrTaiw
 Author URI: https://www.facebook.com/taiw96
 */
@@ -61,8 +61,7 @@ function tw_et_save($post_id){
 			return $post_id;
     }
     $thumbnail_url = sanitize_text_field($_POST['tw_thumbnail']);
-	if($_POST['tw_thumbnail'])
-		update_post_meta($post_id, 'tw_thumbnail_url', $thumbnail_url);
+	update_post_meta($post_id, 'tw_thumbnail_url', $thumbnail_url);
 }
 
 
@@ -104,8 +103,8 @@ function tw_et_replace_thumbnail($html, $post_ID, $post_image_id, $size, $attr){
 	}
 	$wp_thumbnail = get_post_meta($post_ID, '_thumbnail_id', true);
 	$tw_thumbnail = esc_url(get_post_meta($post_ID, 'tw_thumbnail_url', true), array('http', 'https'));
-	if(strlen($tw_thumbnail) <= 7 && preg_match("/(http|https):\/\/[^\s]+(\.gif|\.jpg|\.jpeg|\.png)/is", $post_content, $thumb))
-		$tw_thumbnail = esc_url($thumb[0], array('http', 'https'));
+	if(strlen($tw_thumbnail) <= 7 && preg_match("/<img(.*?)src=(\"|')(http|https):\/\/([^\s]+)+(\"|')(.*?)>/is", $post_content, $thumb))
+		$tw_thumbnail = esc_url($thumb[3] . '://' . $thumb[4], array('http', 'https'));
 	if((!$wp_thumbnail || $wp_thumbnail == -1) && strlen($tw_thumbnail) > 10)
 		$html = tw_html_thumbnail($tw_thumbnail, $size, $attr);
 	return $html;

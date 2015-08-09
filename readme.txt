@@ -4,7 +4,7 @@ Contributor's website: http://thucdem.mobi
 Donate link: http://thucdem.mobi
 Tags: external thumbnail, external featured image, remote thumbnail, thumbnail via url
 Requires at least: 3.3
-Tested up to: 4.2
+Tested up to: 4.3
 Stable tag: trunk
 
 Using external images from anywhere to make thumbnail
@@ -35,5 +35,9 @@ Fix override additional image
 
 *1.1.1*
 Fix override additional image if attr is null
+
+*1.2*
+Fix not delete field external thumbnail
+Optimal first image filtering
 
 
